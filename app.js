@@ -1,11 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 require('dotenv').config();
 
-// Routers
+// Import routers
 const pictureRouter = require('./routes/pictureRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Set up cors
+app.use(cors());
+
+// Set up json parsing for incoming requests
+app.use(express.json());
 
 // Set up routers
 app.use('/pictures', pictureRouter);
