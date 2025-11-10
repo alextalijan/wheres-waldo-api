@@ -6,9 +6,41 @@
 
 generator client {
   provider = "prisma-client"
+  output   = "../src/generated"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DEVELOPMENT_DATABASE_URL")
+}
+
+model Character {
+  id          String       @id @default(uuid())
+  name        String
+  appearances Appearance[]
+}
+
+model Picture {
+  id          String       @id @default(uuid())
+  name        String
+  appearances Appearance[]
+  records     Record[]
+}
+
+model Appearance {
+  id          String    @id @default(uuid())
+  picture     Picture   @relation(fields: [pictureId], references: [id])
+  pictureId   String
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId String
+  xCoordinate Float
+  yCoordinate Float
+}
+
+model Record {
+  id           String  @id @default(uuid())
+  name         String
+  milliseconds Int
+  Picture      Picture @relation(fields: [pictureId], references: [id])
+  pictureId    String
 }
