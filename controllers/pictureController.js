@@ -10,7 +10,7 @@ module.exports = {
   pictureGet: async (req, res) => {
     const picture = await prisma.picture.findFirst({
       where: {
-        id: req.params.pictureId,
+        name: req.params.pictureName,
       },
       include: {
         appearances: true,
@@ -19,19 +19,29 @@ module.exports = {
     res.json({ success: true, picture });
   },
   pictureRecordsGet: async (req, res) => {
+    const picture = await prisma.record.findFirst({
+      where: {
+        name: req.params.pictureName,
+      },
+    });
     const records = await prisma.record.findMany({
       where: {
-        pictureId: req.params.pictureId,
+        pictureId: picture.id,
       },
     });
     res.json({ success: true, records });
   },
   addRecord: async (req, res) => {
+    const picture = await prisma.record.findFirst({
+      where: {
+        name: req.params.pictureName,
+      },
+    });
     const record = await prisma.record.create({
       data: {
         name: req.body.username,
         milliseconds: req.body.time,
-        pictureId: req.params.pictureId,
+        pictureId: picture.id,
       },
     });
     res.json({ success: true, record });

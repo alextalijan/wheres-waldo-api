@@ -5,8 +5,8 @@ const router = Router();
 const controller = require('../controllers/pictureController');
 
 router.get('/', controller.picturesGet);
-router.get('/:pictureId', controller.pictureGet);
-router.get('/:pictureId/records', controller.pictureRecordsGet);
-router.post('/:pictureId/records', controller.addRecord);
+router.get('/:pictureName', controller.pictureGet);
+router.get('/:pictureName/records', controller.pictureRecordsGet);
+router.post('/:pictureName/records', controller.addRecord);
 
 module.exports = router;
