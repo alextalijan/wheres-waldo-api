@@ -12,15 +12,25 @@ module.exports = {
       where: {
         name: req.params.pictureName,
       },
-      include: {
-        appearances: {
-          include: {
-            character: true,
-          },
-        },
-      },
     });
     res.json({ success: true, picture });
+  },
+  appearancesGet: async (req, res) => {
+    const picture = await prisma.picture.findFirst({
+      where: {
+        name: req.params.pictureName,
+      },
+    });
+    const appearances = await prisma.appearance.findMany({
+      where: {
+        pictureId: picture.id,
+      },
+      include: {
+        character: true,
+      },
+    });
+
+    res.json({ success: true, appearances });
   },
   pictureRecordsGet: async (req, res) => {
     const picture = await prisma.record.findFirst({
