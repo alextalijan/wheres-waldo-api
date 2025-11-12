@@ -13,7 +13,11 @@ module.exports = {
         name: req.params.pictureName,
       },
       include: {
-        appearances: true,
+        appearances: {
+          include: {
+            character: true,
+          },
+        },
       },
     });
     res.json({ success: true, picture });
