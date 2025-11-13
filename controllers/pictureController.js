@@ -42,6 +42,10 @@ module.exports = {
       where: {
         pictureId: picture.id,
       },
+      orderBy: {
+        milliseconds: 'asc',
+      },
+      take: 10,
     });
     res.json({ success: true, records });
   },
