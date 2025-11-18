@@ -50,7 +50,7 @@ module.exports = {
     res.json({ success: true, records });
   },
   addRecord: async (req, res) => {
-    const picture = await prisma.record.findFirst({
+    const picture = await prisma.picture.findFirst({
       where: {
         name: req.params.pictureName,
       },
@@ -58,7 +58,7 @@ module.exports = {
     const record = await prisma.record.create({
       data: {
         name: req.body.username,
-        milliseconds: req.body.time,
+        milliseconds: req.body.milliseconds,
         pictureId: picture.id,
       },
     });
