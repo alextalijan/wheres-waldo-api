@@ -33,7 +33,7 @@ module.exports = {
     res.json({ success: true, appearances });
   },
   pictureRecordsGet: async (req, res) => {
-    const picture = await prisma.record.findFirst({
+    const picture = await prisma.picture.findFirst({
       where: {
         name: req.params.pictureName,
       },
